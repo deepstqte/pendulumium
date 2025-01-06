@@ -1,0 +1,30 @@
+{
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "nodemon": "^3.1.9",
+    "typescript": "^4.9.5",
+    "@types/jest": "^29.5.14",
+    "@types/supertest": "^6.0.2",
+    "jest": "^29.7.0",
+    "ts-node": "^10.9.2",
+    "supertest": "^7.0.0",
+    "ts-jest": "^29.2.5"
+  },
+  "scripts": {
+    "install:all": "yarn workspace api-server install && yarn workspace ws-server install && yarn workspace pendulum-ui install",
+    "start:api": "yarn workspace api-server start",
+    "start:ws": "yarn workspace ws-server start",
+    "start:ui": "yarn workspace pendulum-ui start",
+    "start:all": "yarn workspace api-server start && yarn workspace ws-server start && yarn workspace pendulum-ui start",
+    "build:all": "yarn workspace api-server build && yarn workspace ws-server build && yarn workspace pendulum-ui build",
+    "dev:api": "concurrently \"tsc -w -p packages/apiServer/tsconfig.json\" \"nodemon packages/apiServer/dist/apiServer/src/index.js\"",
+    "dev:ws": "concurrently \"tsc -w -p packages/wsServer/tsconfig.json\" \"nodemon packages/wsServer/dist/wsServer/src/index.js\"",
+    "test:all": "yarn workspace api-server test && yarn workspace ws-server test",
+    "predev": "yarn install:all",
+    "dev": "concurrently \"yarn dev:api\" \"yarn dev:ws\" \"yarn start:ui\""
+  }
+}
