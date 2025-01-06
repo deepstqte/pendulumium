@@ -1,3 +1,7 @@
+# Demo
+
+https://github.com/user-attachments/assets/931a3a62-fffe-41e1-9838-9921775910fc
+
 # Running the project
 
 Clone the project on your machine with the command `git@github.com:deepstqte/pendulumium.git` then enter the folder with `cd pendulumium` if you on Linuc or Max in your terminal.
