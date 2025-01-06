@@ -1,0 +1,57 @@
+#  Global Node / Yarn / NPM
+node_modules/
+*.log
+yarn-error.log
+package-lock.json
+.yarn-integrity
+.npmrc
+.yarnrc
+
+# Ignores node_modules in any subfolder
+packages/*/node_modules/
+
+# lockfiles or logs in sub-packages, just in case they get generated
+packages/*/package-lock.json
+packages/*/yarn.lock
+packages/*/yarn-error.log
+
+#  TypeScript build outputs
+dist/
+lib/
+out/
+*.tsbuildinfo
+
+# For each package (e.g., api-server, ws-server) if build outputs to dist/
+packages/*/dist/
+packages/*/lib/
+packages/*/out/
+packages/*/*.tsbuildinfo
+
+#  dotenv environment files
+.env
+.env.*
+
+#  Coverage
+coverage/
+*.lcov
+*.lcov.*
+/jest-cache/
+/jest-static/
+
+#  macOS system
+.DS_Store
+
+# Docker
+docker-compose.override.yml
+.dockerignore
+
+# Editor directories / files
+.idea/
+.vscode/
+*.swp
+*~
+
+# Ignore logs or other ephemeral data
+tmp/
+temp/
+redux-logger.log
