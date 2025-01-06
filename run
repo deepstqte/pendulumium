@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+# Exit immediately if a command exits with a non-zero status
+set -e
+
+# Check if Docker is installed
+if ! command -v docker &> /dev/null
+then
+  echo "Docker not found. Installing Docker Desktop via Homebrew..."
+
+  # Check for Homebrew
+  if ! command -v brew &> /dev/null
+  then
+    echo "Homebrew is not installed. Please install Homebrew first (https://brew.sh/)."
+    exit 1
+  fi
+
+  # Install Docker Desktop
+  brew install --cask docker
+
+  echo "Docker Desktop was installed. Please open Docker from /Applications or run Docker Desktop at least once to complete setup."
+  echo "Re-run this script once Docker is running."
+  exit 0
+fi
+
+echo "Docker is installed."
+
+# Start (or re-run) the Redis container
+# '|| true' to ignore an error if container already exists
+echo "Starting Docker Redis container..."
+docker run --name redis \
+    -p 6379:6379 \
+    -v ./dump.rdb:/data/dump.rdb \
+    -d redis \
+    redis-server --save "" --appendonly no --stop-writes-on-bgsave-error no || true
+
+# If the container is already there, you can do 'docker start redis'
+# instead. But this is a simple approach.
+
+yarn install:all
+yarn workspace api-server build
+yarn workspace ws-server build
+
+# Yarn dev
+echo "Starting dev environment..."
+yarn dev
